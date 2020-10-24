@@ -1,0 +1,26 @@
+﻿@inherits LayoutComponentBase
+
+    <div class="sidebar @NavCollapse">
+        <NavMenu OnCollapse="OnCollapse" />
+    </div>
+
+
+
+<div class="main">
+    <div class="top-row bg-dark px-4">
+        <a class="btn btn-outline-light" href="https://jhray.com" target="_blank">JHRay.Com</a>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@code {
+    private string NavCollapse = "thin";
+    void OnCollapse(string message)
+    {
+        NavCollapse = message;
+    }
+
+}

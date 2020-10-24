@@ -1,0 +1,18 @@
+﻿@page "/fetchdata"
+@using Blogs.Jhray.Data
+@using Markdig
+@inherits FetchDataBase
+<h1>Meme Driven Development</h1>
+
+@if (blogPosts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var blogPost in blogPosts.OrderByDescending(d => d.PublishDate))
+    {
+        <h2>@blogPost.Title</h2>
+          @((MarkupString) Markdown.ToHtml(blogPost.Content))
+    }
+}
