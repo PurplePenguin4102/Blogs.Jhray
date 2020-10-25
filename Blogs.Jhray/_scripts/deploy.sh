@@ -2,7 +2,7 @@
 
 echo "Running deploy script on master branch"
 
-dotnet publish Blogs.Jhray.csproj
+dotnet publish Blogs.Jhray/Blogs.Jhray.csproj
 cd /home/travis/build/PurplePenguin4102/Blogs.Jhray/bin/Debug/netcoreapp3.1/publish/
 echo "Initiating Git"
 git init
