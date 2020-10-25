@@ -9,7 +9,7 @@ addons:
 before_install:
  - bash Blogs.Jhray/_scripts/install.sh
 script:
- - dotnet restore Blogs.Jhray.sln
- - dotnet build Blogs.Jhray.sln -c Release
+ - dotnet restore Blogs.Jhray/Blogs.Jhray.csproj
+ - dotnet build Blogs.Jhray/Blogs.Jhray.csproj -c Release
 after_success:
  - bash Blogs.Jhray/_scripts/deploy.sh
