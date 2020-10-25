@@ -1,14 +1,18 @@
 ﻿@inherits LayoutComponentBase
 
-    <div class="sidebar @NavCollapse">
-        <NavMenu OnCollapse="OnCollapse" />
-    </div>
-
-
+<div class="sidebar @NavCollapse">
+    <NavMenu/>
+</div>
 
 <div class="main">
     <div class="top-row bg-dark px-4">
-        <a class="btn btn-outline-light" href="https://jhray.com" target="_blank">JHRay.Com</a>
+        <button class="btn btn-outline-light" @onclick="@(() =>
+            {
+                ToggleNavMenu();
+            })">
+            <span class=@chevron></span>
+        </button>
+        <a class="btn btn-outline-light" style="position:fixed; right:25px;" href="https://jhray.com" target="_blank">JHRay.Com</a>
     </div>
 
     <div class="content px-4">
@@ -17,10 +21,13 @@
 </div>
 
 @code {
-    private string NavCollapse = "thin";
-    void OnCollapse(string message)
+    private string chevronBase = "oi oi-chevron-";
+    private string direc = "left";
+    private string chevron => chevronBase + direc;
+    private string NavCollapse = "";
+    private void ToggleNavMenu()
     {
-        NavCollapse = message;
+        direc = direc == "left" ? "right" : "left";
+        NavCollapse = NavCollapse == "collapse" ? null : "collapse";
     }
-
 }
