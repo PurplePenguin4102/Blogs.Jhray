@@ -9,13 +9,13 @@ using Blogs.Jhray.Database.Entities;
 
 namespace Blogs.Jhray.Pages
 {
-    public class FetchDataBase : ComponentBase
+    public class MemesBase : ComponentBase
     {
         protected List<Posts> blogPosts;
 
         [Inject]
         public BlogService BlogService { get; set; }
-        public FetchDataBase(){}
+        public MemesBase(){}
 
         protected override async Task OnInitializedAsync()
         {
