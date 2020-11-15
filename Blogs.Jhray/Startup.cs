@@ -53,7 +53,7 @@ namespace Blogs.Jhray
             }
 
             app.UseStaticFiles();
-
+            app.UsePathBase("/blogs");
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
