@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Blogs.Jhray.Database
 {
-    public partial class BlogContext : DbContext
+    public partial class BlogContext : IdentityDbContext
     {
         public BlogContext(){}
 
@@ -16,7 +17,7 @@ namespace Blogs.Jhray.Database
         public virtual DbSet<ArInternalMetadata> ArInternalMetadata { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public new virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
 

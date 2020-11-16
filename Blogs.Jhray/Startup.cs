@@ -6,12 +6,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Blogs.Jhray.Data;
 using Blogs.Jhray.Database;
 using Microsoft.EntityFrameworkCore;
+using Blogs.Jhray.Database.Entities;
+using Blogs.Jhray.Areas.Identity.Pages;
 
 namespace Blogs.Jhray
 {
@@ -28,13 +33,17 @@ namespace Blogs.Jhray
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
             var cn = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BlogContext>(opt =>
             {
                 opt.UseNpgsql(cn);
             });
+            services.AddDefaultIdentity<IdentityUser>(options =>
+                    options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<BlogContext>();
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<BlogService>();
         }
 
@@ -55,8 +64,12 @@ namespace Blogs.Jhray
             app.UseStaticFiles();
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
