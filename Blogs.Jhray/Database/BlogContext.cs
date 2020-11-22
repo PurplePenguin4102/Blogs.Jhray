@@ -91,11 +91,11 @@ namespace Blogs.Jhray.Database
                 entity.ToTable("users");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("index_users_on_email")
+                    .HasDatabaseName("index_users_on_email")
                     .IsUnique();
 
                 entity.HasIndex(e => e.ResetPasswordToken)
-                    .HasName("index_users_on_reset_password_token")
+                    .HasDatabaseName("index_users_on_reset_password_token")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
