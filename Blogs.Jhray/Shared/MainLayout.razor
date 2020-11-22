@@ -1,26 +1,27 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="sidebar @NavCollapse">
-    <NavMenu/>
-</div>
+<div class="page">
+    <div class="sidebar @NavCollapse">
+        <NavMenu />
+    </div>
 
-<div class="main">
-    <div class="top-row bg-dark px-4">
-        <button class="btn btn-outline-light" @onclick="@(() =>
+    <div class="main">
+        <div class="top-row bg-dark px-4">
+            <button class="btn btn-outline-light" @onclick="@(() =>
             {
                 ToggleNavMenu();
             })">
-            <span class=@chevron></span>
-        </button>
-        <a class="btn btn-outline-light" style="position:fixed; right:25px;" href="https://jhray.com" target="_blank">JHRay.Com</a>
-        <LoginDisplay />
-    </div>
+                <span class=@chevron></span>
+            </button>
+            <LoginDisplay />
+            <a class="btn btn-outline-light" style="position: fixed; right: 25px;" href="https://jhray.com" target="_blank">JHRay.Com</a>
+        </div>
 
-    <div class="content px-4">
-        @Body
+        <div class="content px-4">
+            @Body
+        </div>
     </div>
 </div>
-
 @code {
     private string chevronBase = "oi oi-chevron-";
     private string direc = "left";

@@ -17,6 +17,9 @@ using Blogs.Jhray.Database;
 using Microsoft.EntityFrameworkCore;
 using Blogs.Jhray.Database.Entities;
 using Blogs.Jhray.Areas.Identity.Pages;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 
 namespace Blogs.Jhray
 {
@@ -45,6 +48,13 @@ namespace Blogs.Jhray
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<BlogService>();
+            services
+              .AddBlazorise(options =>
+              {
+                  options.ChangeTextOnKeyPress = true; // optional
+              })
+              .AddBootstrapProviders()
+              .AddFontAwesomeIcons();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +74,9 @@ namespace Blogs.Jhray
             app.UseStaticFiles();
             app.UseRouting();
 
+            app.ApplicationServices
+                .UseBootstrapProviders()
+                .UseFontAwesomeIcons();
             app.UseAuthentication();
             app.UseAuthorization();
 
