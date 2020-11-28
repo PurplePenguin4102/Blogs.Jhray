@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Blogs.Jhray.Areas.Identity.Data;
 
 namespace Blogs.Jhray.Database
 {
@@ -18,6 +19,7 @@ namespace Blogs.Jhray.Database
         public virtual DbSet<Posts> Posts { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
         public new virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<BlogsJhrayUser> BlogsJhrayUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){}
 
