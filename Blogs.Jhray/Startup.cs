@@ -20,6 +20,9 @@ using Blogs.Jhray.Areas.Identity.Pages;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
+using Microsoft.Extensions.Logging;
+using Blogs.Jhray.Areas.Identity.Pages.Account;
+using Blogs.Jhray.Areas.Identity.Data;
 
 namespace Blogs.Jhray
 {
@@ -41,13 +44,16 @@ namespace Blogs.Jhray
             {
                 opt.UseNpgsql(cn);
             });
-            services.AddDefaultIdentity<IdentityUser>(options =>
+
+            // our identity context was scaffolded under a different context, meaning we don't need to worry about uses in BlogContext
+            services.AddDefaultIdentity<BlogsJhrayUser>(options =>
                     options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<BlogContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddScoped<BlogService>();
+            
             services
               .AddBlazorise(options =>
               {

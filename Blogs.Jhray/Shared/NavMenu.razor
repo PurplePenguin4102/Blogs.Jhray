@@ -10,9 +10,26 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="memes">
-                <span class="oi oi-dollar" aria-hidden="true"></span>Memes
-            </NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <ul>
+                        <li>
+                            <NavLink class="nav-link" href="memes">
+                                <span class="oi oi-dollar" aria-hidden="true"></span>Memes
+                            </NavLink>
+                        </li><li>
+                            <NavLink class="nav-link" href="memes">
+                                <span class="oi oi-plus" aria-hidden="true"></span>
+                            </NavLink>
+                        </li>
+                    </ul>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="memes">
+                        <span class="oi oi-dollar" aria-hidden="true"></span>Memes
+                    </NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
         </li>
     </ul>
 </div>
