@@ -22,7 +22,6 @@ using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
 using Microsoft.Extensions.Logging;
 using Blogs.Jhray.Areas.Identity.Pages.Account;
-using Blogs.Jhray.Areas.Identity.Data;
 
 namespace Blogs.Jhray
 {
@@ -51,7 +50,7 @@ namespace Blogs.Jhray
                 .AddEntityFrameworkStores<BlogContext>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<BlogsJhrayUser>>();
             services.AddScoped<BlogService>();
             
             services

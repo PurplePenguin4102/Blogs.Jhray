@@ -1,7 +1,8 @@
 ﻿@page
 @using Microsoft.AspNetCore.Identity
+@using Blogs.Jhray.Database.Entities
 @attribute [IgnoreAntiforgeryToken]
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<BlogsJhrayUser> SignInManager
 @functions {
     public async Task<IActionResult> OnPost()
     {

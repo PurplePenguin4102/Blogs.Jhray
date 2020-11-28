@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace Blogs.Jhray.Areas.Identity.Data
+namespace Blogs.Jhray.Database.Entities
 {
     // Add profile data for application users by adding properties to the BlogsJhrayUser class
     public class BlogsJhrayUser : IdentityUser

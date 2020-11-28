@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Text;
 using System.Threading.Tasks;
-using Blogs.Jhray.Areas.Identity.Data;
+using Blogs.Jhray.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +14,10 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<BlogsJhrayUser> _userManager;
-        private readonly IEmailSender _sender;
 
-        public RegisterConfirmationModel(UserManager<BlogsJhrayUser> userManager, IEmailSender sender)
+        public RegisterConfirmationModel(UserManager<BlogsJhrayUser> userManager)
         {
             _userManager = userManager;
-            _sender = sender;
         }
 
         public string Email { get; set; }
@@ -52,7 +50,7 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account
                 EmailConfirmationUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
+                    values: new { area = "Identity", userId, code, returnUrl },
                     protocol: Request.Scheme);
             }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blogs.Jhray.Areas.Identity.Data;
+using Blogs.Jhray.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,9 +12,9 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<BlogsJhrayUser> _userManager;
+        private readonly UserManager<BlogsJhrayUser> _userManager;
         private readonly SignInManager<BlogsJhrayUser> _signInManager;
-        ILogger<ResetAuthenticatorModel> _logger;
+        private readonly ILogger<ResetAuthenticatorModel> _logger;
 
         public ResetAuthenticatorModel(
             UserManager<BlogsJhrayUser> userManager,

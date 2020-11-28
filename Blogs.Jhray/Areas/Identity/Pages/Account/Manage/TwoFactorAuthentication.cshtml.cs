@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blogs.Jhray.Areas.Identity.Data;
+using Blogs.Jhray.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,20 +12,17 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account.Manage
 {
     public class TwoFactorAuthenticationModel : PageModel
     {
-        private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}";
+        //private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}";
 
         private readonly UserManager<BlogsJhrayUser> _userManager;
         private readonly SignInManager<BlogsJhrayUser> _signInManager;
-        private readonly ILogger<TwoFactorAuthenticationModel> _logger;
 
         public TwoFactorAuthenticationModel(
             UserManager<BlogsJhrayUser> userManager,
-            SignInManager<BlogsJhrayUser> signInManager,
-            ILogger<TwoFactorAuthenticationModel> logger)
+            SignInManager<BlogsJhrayUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         public bool HasAuthenticator { get; set; }

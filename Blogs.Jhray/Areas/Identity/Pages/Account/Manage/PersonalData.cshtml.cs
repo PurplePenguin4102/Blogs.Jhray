@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Blogs.Jhray.Areas.Identity.Data;
+using Blogs.Jhray.Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,14 +10,10 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account.Manage
     public class PersonalDataModel : PageModel
     {
         private readonly UserManager<BlogsJhrayUser> _userManager;
-        private readonly ILogger<PersonalDataModel> _logger;
 
-        public PersonalDataModel(
-            UserManager<BlogsJhrayUser> userManager,
-            ILogger<PersonalDataModel> logger)
+        public PersonalDataModel(UserManager<BlogsJhrayUser> userManager)
         {
             _userManager = userManager;
-            _logger = logger;
         }
 
         public async Task<IActionResult> OnGet()

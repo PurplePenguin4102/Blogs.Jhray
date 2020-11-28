@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Blogs.Jhray.Areas.Identity.Data;
 
 namespace Blogs.Jhray.Database
 {
-    public partial class BlogContext : IdentityDbContext
+    public partial class BlogContext : IdentityDbContext<BlogsJhrayUser>
     {
         public BlogContext(){}
 

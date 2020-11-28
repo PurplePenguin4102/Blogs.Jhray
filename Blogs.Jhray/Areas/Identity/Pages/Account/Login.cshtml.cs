@@ -12,20 +12,16 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Blogs.Jhray.Areas.Identity.Data;
 
 namespace Blogs.Jhray.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<BlogsJhrayUser> _userManager;
         private readonly SignInManager<BlogsJhrayUser> _signInManager;
 
-        public LoginModel(SignInManager<BlogsJhrayUser> signInManager, 
-            UserManager<BlogsJhrayUser> userManager)
+        public LoginModel(SignInManager<BlogsJhrayUser> signInManager)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
         }
 
@@ -87,7 +83,7 @@ namespace Blogs.Jhray.Areas.Identity.Pages.Account
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
