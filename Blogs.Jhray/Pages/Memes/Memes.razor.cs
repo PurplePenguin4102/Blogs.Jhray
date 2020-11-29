@@ -15,7 +15,7 @@ namespace Blogs.Jhray.Pages
         protected List<Posts> blogPosts;
 
         [Parameter]
-        public EventCallback<int> SignalReload { get; set; }
+        public bool ShowManageWorkflow { get; set; } = false;
 
         [Inject]
         public BlogService BlogService { get; set; }

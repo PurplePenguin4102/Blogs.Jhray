@@ -16,9 +16,12 @@ else
     <div class="post mb-4">
         <h2>@blogPost.Title</h2>
         <h3>@blogPost.Subtitle</h3>
+        @if (ShowManageWorkflow)
+        {
         <AuthorizeView Policy="content-creator">
             <button class="btn btn-danger" @onclick="() => DeletePostById(blogPost.Id)">-</button>
         </AuthorizeView>
+        }
         @((MarkupString) Markdown.ToHtml(blogPost.Content))
     </div>
     }
