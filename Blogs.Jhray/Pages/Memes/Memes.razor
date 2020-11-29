@@ -1,0 +1,26 @@
+﻿@page "/memes"
+@using Blogs.Jhray.Data
+@using Markdig
+@inherits MemesBase
+<div class="blog container">
+    <h1>Meme Driven Development</h1>
+
+@if (blogPosts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var blogPost in blogPosts.OrderByDescending(d => d.PublishDate))
+    {
+    <div class="post mb-4">
+        <h2>@blogPost.Title</h2>
+        <h3>@blogPost.Subtitle</h3>
+        <AuthorizeView Policy="content-creator">
+            <button class="btn btn-danger" @onclick="() => DeletePostById(blogPost.Id)">-</button>
+        </AuthorizeView>
+        @((MarkupString) Markdown.ToHtml(blogPost.Content))
+    </div>
+    }
+}
+</div>

@@ -1,4 +1,5 @@
-﻿using Blogs.Jhray.Database;
+﻿using Blogs.Jhray.Data.Models;
+using Blogs.Jhray.Database;
 using Blogs.Jhray.Database.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,31 @@ namespace Blogs.Jhray.Data
         public List<Posts> ListPosts()
         {
             return _blogContext.Posts.ToList();
+        }
+
+        public async Task DeletePostById(long id)
+        {
+            var toRemove = _blogContext.Posts.First(p => p.Id == id);
+            _blogContext.Posts.Remove(toRemove);
+            await _blogContext.SaveChangesAsync();
+        }
+
+        public async Task<long> AddPost(PostFormData posts)
+        {
+            var newPost = new Posts()
+            {
+                Content = posts.Content,
+                Title = posts.Title,
+                Subtitle = posts.Subtitle,
+                PublishDate = posts.PublishDate,
+                Published = posts.Published,
+                TopPost = false,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+            _blogContext.Posts.Add(newPost);
+            await _blogContext.SaveChangesAsync();
+            return newPost.Id;
         }
     }
 }

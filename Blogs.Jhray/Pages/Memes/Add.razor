@@ -1,0 +1,44 @@
+﻿@page "/memes/add"
+@using Blogs.Jhray.Pages
+@inherits AddBase
+
+<div class="card mb-4">
+    <div class="card-header">
+        <span class="card-title text-left">New Post in Memes</span>
+    </div>
+    <div class="card-body">
+        <EditForm EditContext="EditContext" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <Blazorise.ValidationSummary />
+            <div class="form-row">
+                <div class="col col-md-6 form-group">
+                    <Label>Post Title</Label>
+                    <InputText @bind-Value="PostFormData.Title" class="form-control">Title</InputText>
+                </div>
+                <div class="col col-md-6 form-group">
+                    <Label>Post Subtitle</Label>
+                    <InputText @bind-Value="PostFormData.Subtitle" class="form-control">Subtitle</InputText>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col col-md-12 form-group">
+                    <Label>Content</Label>
+                    <InputTextArea @bind-Value="PostFormData.Content" class="form-control" rows="5">Content</InputTextArea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col col-auto form-group">
+                    <Label>Publish Date</Label>
+                    <InputDate @bind-Value="PostFormData.PublishDate" class="form-control">Publish Date</InputDate>
+                </div>
+            </div>
+            <Label>
+                Is Published
+                <InputCheckbox @bind-Value="PostFormData.Published"></InputCheckbox>
+            </Label>
+            <button type="submit" disabled="@FormInvalid">Submit</button>
+        </EditForm>
+    </div>
+</div>
+<Memes @ref="Memes"></Memes>
+
