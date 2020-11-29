@@ -6,6 +6,7 @@ using Blogs.Jhray.Data;
 using System.Threading.Tasks;
 using Markdig;
 using Blogs.Jhray.Database.Entities;
+using Microsoft.JSInterop;
 
 namespace Blogs.Jhray.Pages
 {
@@ -18,6 +19,9 @@ namespace Blogs.Jhray.Pages
 
         [Inject]
         public BlogService BlogService { get; set; }
+
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -38,7 +42,10 @@ namespace Blogs.Jhray.Pages
 
         public async Task DeletePostById(long id)
         {
-            await BlogService.DeletePostById(id);
+            if (await JSRuntime.InvokeAsync<bool>("confirm", new[] { "Are you sure you want to delete this post?" }))
+            {
+                await BlogService.DeletePostById(id);
+            }
             ReloadPosts();
         }
     }

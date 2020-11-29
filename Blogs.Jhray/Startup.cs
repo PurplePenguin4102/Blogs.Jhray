@@ -24,6 +24,7 @@ using Microsoft.Extensions.Logging;
 using Blogs.Jhray.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authorization;
 using Blogs.Jhray.Security;
+using Microsoft.JSInterop;
 
 namespace Blogs.Jhray
 {
