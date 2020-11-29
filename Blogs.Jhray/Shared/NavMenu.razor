@@ -10,27 +10,15 @@
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <AuthorizeView Policy="content-creator">
-                <Authorized>
-                    <ul>
-                        <li>
-                            <NavLink class="nav-link" href="memes">
-                                <span class="oi oi-dollar" aria-hidden="true"></span>Memes
-                            </NavLink>
-                        </li><li>
-                            <NavLink class="nav-link" href="memes">
-                                <span class="oi oi-plus" aria-hidden="true"></span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </Authorized>
-                <NotAuthorized>
-                    <NavLink class="nav-link" href="memes">
-                        <span class="oi oi-dollar" aria-hidden="true"></span>Memes
-                    </NavLink>
-                </NotAuthorized>
-            </AuthorizeView>
+            <BlogNav/>
         </li>
+        <AuthorizeView Policy="content-creator">
+            <li class="nav-item px-3">
+                <NavLink class="nav-link" href="AddBlog" Match="NavLinkMatch.All">
+                    <span class="oi oi-plus" aria-hidden="true"></span>Add Blog
+                </NavLink>
+            </li>
+        </AuthorizeView>
     </ul>
 </div>
 

@@ -1,0 +1,25 @@
+﻿<AuthorizeView Policy="content-creator">
+    <Authorized>
+        <ul>
+            <li class="first">
+                <NavLink class="nav-link" href="memes">
+                    <span class="oi oi-dollar" aria-hidden="true"></span>Memes
+                </NavLink>
+            </li>
+            <li class="modify">
+                <NavLink class="nav-link" href="memes">
+                    <span class="oi oi-plus" aria-hidden="true"></span>
+                </NavLink>
+            </li>
+        </ul>
+    </Authorized>
+    <NotAuthorized>
+        <NavLink class="nav-link" href="memes">
+            <span class="oi oi-dollar" aria-hidden="true"></span>Memes
+        </NavLink>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}
