@@ -22,6 +22,8 @@ using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
 using Microsoft.Extensions.Logging;
 using Blogs.Jhray.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Authorization;
+using Blogs.Jhray.Security;
 
 namespace Blogs.Jhray
 {
@@ -52,7 +54,13 @@ namespace Blogs.Jhray
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<BlogsJhrayUser>>();
             services.AddScoped<BlogService>();
-            
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("content-creator", policy => policy.Requirements.Add(new EmailRequirement("joseph.h.ray@protonmail.com")));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, EmailHandler>();
+
             services
               .AddBlazorise(options =>
               {
