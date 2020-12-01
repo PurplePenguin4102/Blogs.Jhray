@@ -57,7 +57,8 @@ namespace Blogs.Jhray
             services.AddScoped<BlogService>();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("content-creator", policy => policy.Requirements.Add(new EmailRequirement("joseph.h.ray@protonmail.com")));
+                options.AddPolicy("content-creator", policy 
+                    => policy.Requirements.Add(new EmailRequirement("joseph.h.ray@protonmail.com")));
             });
 
             services.AddSingleton<IAuthorizationHandler, EmailHandler>();
