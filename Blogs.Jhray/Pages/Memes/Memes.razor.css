@@ -1,11 +1,15 @@
 ﻿body {
 }
 
-
+.manage-console {
+    position: absolute;
+}
 
 .blog-header {
     text-align: center;
     padding-top: 15px;
+    background-color: mintcream;
+    padding-bottom: 5px;
 }
 
 .post-title {
@@ -18,4 +22,8 @@
     text-align: center;
     font-size: 1.15rem;
     margin-bottom: 30px;
+}
+
+.lead {
+    font-style: oblique;
 }

@@ -46,5 +46,25 @@ namespace Blogs.Jhray.Data
             await _blogContext.SaveChangesAsync();
             return newPost.Id;
         }
+
+        internal async Task<long> EditPost(PostFormData form)
+        {
+            var post = await _blogContext.Posts.FindAsync(form.Id);
+            post.Content = form.Content;
+            post.Title = form.Title;
+            post.Subtitle = form.Subtitle;
+            post.PublishDate = form.PublishDate;
+            post.Published = form.Published;
+            post.TopPost = false;
+            post.UpdatedAt = DateTime.Now;
+            
+            await _blogContext.SaveChangesAsync();
+            return post.Id;
+        }
+
+        internal async Task<Posts> Find(long id)
+        {
+            return await _blogContext.Posts.FindAsync(id);
+        }
     }
 }

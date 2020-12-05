@@ -4,12 +4,21 @@
 
 <div class="card mb-4">
     <div class="card-header">
-        <span class="card-title text-left">New Post in Memes</span>
+        <a class="btn btn-link" @onclick="ResetForm">⭯</a>
+        @if (IsEdit)
+        {
+            <span>Now editing post @PostFormData.Id: @PostFormData.Title </span>
+        }
+        else
+        {
+            <span class="card-title text-left">New Post in Memes: @PostFormData.Title</span>
+        }
     </div>
     <div class="card-body">
-        <EditForm EditContext="EditContext" OnValidSubmit="HandleValidSubmit">
+        <EditForm EditContext="EditContext" OnValidSubmit="data => IsEdit ? HandleValidEdit() : HandleValidSubmit()">
             <DataAnnotationsValidator />
             <Blazorise.ValidationSummary />
+
             <div class="form-row">
                 <div class="col col-md-6 form-group">
                     <Label>Post Title</Label>
@@ -36,9 +45,17 @@
                 Is Published
                 <InputCheckbox @bind-Value="PostFormData.Published"></InputCheckbox>
             </Label>
-            <button type="submit" disabled="@FormInvalid">Submit</button>
+            <div class="form-row">
+                @if (IsEdit)
+                {
+                    <button class="btn btn-warning" type="submit" disabled="@FormInvalid">Edit</button>
+                }
+                else
+                {
+                    <button class="btn btn-success" type="submit" disabled="@FormInvalid">Submit</button>
+                }
+            </div>
         </EditForm>
     </div>
 </div>
-<Memes @ref="Memes" ShowManageWorkflow="true"></Memes>
-
+<Memes @ref="Memes" ShowManageWorkflow="true" EditPostCallback="EditMode"></Memes>

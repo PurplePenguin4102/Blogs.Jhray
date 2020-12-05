@@ -17,6 +17,9 @@ namespace Blogs.Jhray.Pages
         [Parameter]
         public bool ShowManageWorkflow { get; set; } = false;
 
+        [Parameter]
+        public EventCallback<long> EditPostCallback { get; set; }
+
         [Inject]
         public BlogService BlogService { get; set; }
 
@@ -47,6 +50,12 @@ namespace Blogs.Jhray.Pages
                 await BlogService.DeletePostById(id);
             }
             ReloadPosts();
+        }
+
+        public async Task EditPostById(long id)
+        {
+            await EditPostCallback.InvokeAsync(id);
+            await JSRuntime.InvokeAsync<object>("scrollTo", new object[] { 0, 0 });
         }
     }
 }

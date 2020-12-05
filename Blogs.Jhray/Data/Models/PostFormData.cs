@@ -8,6 +8,8 @@ namespace Blogs.Jhray.Data.Models
 {
     public class PostFormData
     {
+        public long Id { get; set; }
+
         [Required]
         [StringLength(maximumLength: 999, ErrorMessage = "Try again bucko!", MinimumLength = 5)]
         public string Title { get; set; }
