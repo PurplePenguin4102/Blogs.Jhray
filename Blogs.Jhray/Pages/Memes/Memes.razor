@@ -2,8 +2,16 @@
 @using Blogs.Jhray.Data
 @using Markdig
 @inherits MemesBase
+
+<div class="blog-header jumbotron jumbotron-fluid" style="background-color:mintcream; padding-bottom:5px">
+    <div class="container">
+        <h1 class="display-4">Meme Driven Development</h1>
+        <hr/>
+        <p class="lead" style="font-style:oblique">A blog well suited for members of the hidden society.</p>
+    </div>
+</div>
 <div class="blog container">
-    <h1>Meme Driven Development</h1>
+    
 
 @if (blogPosts == null)
 {
@@ -14,8 +22,8 @@ else
     @foreach (var blogPost in blogPosts.OrderByDescending(d => d.PublishDate))
     {
     <div class="post mb-4">
-        <h2>@blogPost.Title</h2>
-        <h3>@blogPost.Subtitle</h3>
+        <h2 class="post-title">@blogPost.Title</h2>
+        <h3 class="post-subtitle">@blogPost.Subtitle</h3>
         @if (ShowManageWorkflow)
         {
         <AuthorizeView Policy="content-creator">
@@ -23,6 +31,7 @@ else
         </AuthorizeView>
         }
         @((MarkupString) Markdown.ToHtml(blogPost.Content))
+        <hr/>
     </div>
     }
 }

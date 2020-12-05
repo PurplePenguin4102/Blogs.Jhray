@@ -4,6 +4,7 @@
     flex-direction: column;
 }
 
+
 .main {
     flex: 1;
 }
@@ -107,10 +108,5 @@
         position: sticky;
         top: 0;
         z-index: 1;
-    }
-
-    .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
     }
 }

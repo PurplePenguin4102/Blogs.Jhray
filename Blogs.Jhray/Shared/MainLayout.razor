@@ -2,7 +2,7 @@
 
 <div class="page">
     <div class="sidebar @NavCollapse">
-        <NavMenu />
+        <NavMenu/>
     </div>
 
     <div class="main">
@@ -16,8 +16,7 @@
             <LoginDisplay />
             <a class="btn btn-outline-light" style="position: fixed; right: 25px;" href="https://jhray.com" target="_blank">JHRay.Com</a>
         </div>
-
-        <div class="content px-4">
+        <div>
             @Body
         </div>
     </div>
@@ -27,6 +26,7 @@
     private string direc = "left";
     private string chevron => chevronBase + direc;
     private string NavCollapse = "";
+
     private void ToggleNavMenu()
     {
         direc = direc == "left" ? "right" : "left";

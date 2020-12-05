@@ -9,19 +9,19 @@ namespace Blogs.Jhray.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            //migrationBuilder.CreateTable(
-            //    name: "ar_internal_metadata",
-            //    columns: table => new
-            //    {
-            //        key = table.Column<string>(type: "character varying", nullable: false),
-            //        value = table.Column<string>(type: "character varying", nullable: true),
-            //        created_at = table.Column<DateTime>(nullable: false),
-            //        updated_at = table.Column<DateTime>(nullable: false)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("ar_internal_metadata_pkey", x => x.key);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "ar_internal_metadata",
+                columns: table => new
+                {
+                    key = table.Column<string>(type: "character varying", nullable: false),
+                    value = table.Column<string>(type: "character varying", nullable: true),
+                    created_at = table.Column<DateTime>(nullable: false),
+                    updated_at = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("ar_internal_metadata_pkey", x => x.key);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -62,61 +62,61 @@ namespace Blogs.Jhray.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
-            //migrationBuilder.CreateTable(
-            //    name: "posts",
-            //    columns: table => new
-            //    {
-            //        id = table.Column<long>(nullable: false)
-            //            .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-            //        title = table.Column<string>(type: "character varying", nullable: true),
-            //        subtitle = table.Column<string>(type: "character varying", nullable: true),
-            //        content = table.Column<string>(type: "character varying", nullable: true),
-            //        publish_date = table.Column<DateTime>(nullable: true),
-            //        published = table.Column<bool>(nullable: true),
-            //        created_at = table.Column<DateTime>(nullable: false),
-            //        updated_at = table.Column<DateTime>(nullable: false),
-            //        top_post = table.Column<bool>(nullable: true, defaultValueSql: "false")
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_posts", x => x.id);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "posts",
+                columns: table => new
+                {
+                    id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    title = table.Column<string>(type: "character varying", nullable: true),
+                    subtitle = table.Column<string>(type: "character varying", nullable: true),
+                    content = table.Column<string>(type: "character varying", nullable: true),
+                    publish_date = table.Column<DateTime>(nullable: true),
+                    published = table.Column<bool>(nullable: true),
+                    created_at = table.Column<DateTime>(nullable: false),
+                    updated_at = table.Column<DateTime>(nullable: false),
+                    top_post = table.Column<bool>(nullable: true, defaultValueSql: "false")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_posts", x => x.id);
+                });
 
-            //migrationBuilder.CreateTable(
-            //    name: "schema_migrations",
-            //    columns: table => new
-            //    {
-            //        version = table.Column<string>(type: "character varying", nullable: false)
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("schema_migrations_pkey", x => x.version);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "schema_migrations",
+                columns: table => new
+                {
+                    version = table.Column<string>(type: "character varying", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("schema_migrations_pkey", x => x.version);
+                });
 
-            //migrationBuilder.CreateTable(
-            //    name: "users",
-            //    columns: table => new
-            //    {
-            //        id = table.Column<long>(nullable: false)
-            //            .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-            //        email = table.Column<string>(type: "character varying", nullable: false, defaultValueSql: "''::character varying"),
-            //        encrypted_password = table.Column<string>(type: "character varying", nullable: false, defaultValueSql: "''::character varying"),
-            //        reset_password_token = table.Column<string>(type: "character varying", nullable: true),
-            //        reset_password_sent_at = table.Column<DateTime>(nullable: true),
-            //        remember_created_at = table.Column<DateTime>(nullable: true),
-            //        sign_in_count = table.Column<int>(nullable: false),
-            //        current_sign_in_at = table.Column<DateTime>(nullable: true),
-            //        last_sign_in_at = table.Column<DateTime>(nullable: true),
-            //        current_sign_in_ip = table.Column<IPAddress>(nullable: true),
-            //        last_sign_in_ip = table.Column<IPAddress>(nullable: true),
-            //        created_at = table.Column<DateTime>(nullable: false),
-            //        updated_at = table.Column<DateTime>(nullable: false),
-            //        admin = table.Column<bool>(nullable: true, defaultValueSql: "false")
-            //    },
-            //    constraints: table =>
-            //    {
-            //        table.PrimaryKey("PK_users", x => x.id);
-            //    });
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    email = table.Column<string>(type: "character varying", nullable: false, defaultValueSql: "''::character varying"),
+                    encrypted_password = table.Column<string>(type: "character varying", nullable: false, defaultValueSql: "''::character varying"),
+                    reset_password_token = table.Column<string>(type: "character varying", nullable: true),
+                    reset_password_sent_at = table.Column<DateTime>(nullable: true),
+                    remember_created_at = table.Column<DateTime>(nullable: true),
+                    sign_in_count = table.Column<int>(nullable: false),
+                    current_sign_in_at = table.Column<DateTime>(nullable: true),
+                    last_sign_in_at = table.Column<DateTime>(nullable: true),
+                    current_sign_in_ip = table.Column<IPAddress>(nullable: true),
+                    last_sign_in_ip = table.Column<IPAddress>(nullable: true),
+                    created_at = table.Column<DateTime>(nullable: false),
+                    updated_at = table.Column<DateTime>(nullable: false),
+                    admin = table.Column<bool>(nullable: true, defaultValueSql: "false")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -261,17 +261,17 @@ namespace Blogs.Jhray.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            //migrationBuilder.CreateIndex(
-            //    name: "index_users_on_email",
-            //    table: "users",
-            //    column: "email",
-            //    unique: true);
+            migrationBuilder.CreateIndex(
+                name: "index_users_on_email",
+                table: "users",
+                column: "email",
+                unique: true);
 
-            //migrationBuilder.CreateIndex(
-            //    name: "index_users_on_reset_password_token",
-            //    table: "users",
-            //    column: "reset_password_token",
-            //    unique: true);
+            migrationBuilder.CreateIndex(
+                name: "index_users_on_reset_password_token",
+                table: "users",
+                column: "reset_password_token",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

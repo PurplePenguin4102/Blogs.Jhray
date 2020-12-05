@@ -1,2 +1,21 @@
 ﻿body {
 }
+
+
+
+.blog-header {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.post-title {
+    text-align: center;
+    text-decoration: underline overline;
+    margin-top: 3.5rem;
+}
+
+.post-subtitle {
+    text-align: center;
+    font-size: 1.15rem;
+    margin-bottom: 30px;
+}
