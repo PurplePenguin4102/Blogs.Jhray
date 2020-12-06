@@ -2,60 +2,65 @@
 @using Blogs.Jhray.Pages
 @inherits AddBase
 
-<div class="card mb-4">
-    <div class="card-header">
-        <a class="btn btn-link" @onclick="ResetForm">⭯</a>
-        @if (IsEdit)
-        {
-            <span>Now editing post @PostFormData.Id: @PostFormData.Title </span>
-        }
-        else
-        {
-            <span class="card-title text-left">New Post in Memes: @PostFormData.Title</span>
-        }
-    </div>
-    <div class="card-body">
-        <EditForm EditContext="EditContext" OnValidSubmit="data => IsEdit ? HandleValidEdit() : HandleValidSubmit()">
-            <DataAnnotationsValidator />
-            <Blazorise.ValidationSummary />
+<BlogHeader />
 
-            <div class="form-row">
-                <div class="col col-md-6 form-group">
-                    <Label>Post Title</Label>
-                    <InputText @bind-Value="PostFormData.Title" class="form-control">Title</InputText>
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-header">
+            <a class="btn btn-link" @onclick="ResetForm">⭯</a>
+            @if (IsEdit)
+            {
+                <span>Now editing post @PostFormData.Id: @PostFormData.Title </span>
+            }
+            else
+            {
+                <span class="card-title text-left">New Post in Memes: @PostFormData.Title</span>
+            }
+        </div>
+        <div class="card-body">
+            <EditForm EditContext="EditContext" OnValidSubmit="data => IsEdit ? HandleValidEdit() : HandleValidSubmit()">
+                <DataAnnotationsValidator />
+                <Blazorise.ValidationSummary />
+
+                <div class="form-row">
+                    <div class="col col-md-6 form-group">
+                        <Label>Post Title</Label>
+                        <InputText @bind-Value="PostFormData.Title" class="form-control">Title</InputText>
+                    </div>
+                    <div class="col col-md-6 form-group">
+                        <Label>Post Subtitle</Label>
+                        <InputText @bind-Value="PostFormData.Subtitle" class="form-control">Subtitle</InputText>
+                    </div>
                 </div>
-                <div class="col col-md-6 form-group">
-                    <Label>Post Subtitle</Label>
-                    <InputText @bind-Value="PostFormData.Subtitle" class="form-control">Subtitle</InputText>
+                <div class="form-row">
+                    <div class="col col-md-12 form-group">
+                        <Label>Content</Label>
+                        <InputTextArea @bind-Value="PostFormData.Content" class="form-control" rows="5">Content</InputTextArea>
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col col-md-12 form-group">
-                    <Label>Content</Label>
-                    <InputTextArea @bind-Value="PostFormData.Content" class="form-control" rows="5">Content</InputTextArea>
+                <div class="form-row">
+                    <div class="col col-auto form-group">
+                        <Label>Publish Date</Label>
+                        <InputDate @bind-Value="PostFormData.PublishDate" class="form-control">Publish Date</InputDate>
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="col col-auto form-group">
-                    <Label>Publish Date</Label>
-                    <InputDate @bind-Value="PostFormData.PublishDate" class="form-control">Publish Date</InputDate>
+                <Label>
+                    Is Published
+                    <InputCheckbox @bind-Value="PostFormData.Published"></InputCheckbox>
+                </Label>
+                <div class="form-row">
+                    @if (IsEdit)
+                    {
+                        <button class="btn btn-warning" type="submit" disabled="@FormInvalid">Edit</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success" type="submit" disabled="@FormInvalid">Submit</button>
+                    }
                 </div>
-            </div>
-            <Label>
-                Is Published
-                <InputCheckbox @bind-Value="PostFormData.Published"></InputCheckbox>
-            </Label>
-            <div class="form-row">
-                @if (IsEdit)
-                {
-                    <button class="btn btn-warning" type="submit" disabled="@FormInvalid">Edit</button>
-                }
-                else
-                {
-                    <button class="btn btn-success" type="submit" disabled="@FormInvalid">Submit</button>
-                }
-            </div>
-        </EditForm>
+            </EditForm>
+        </div>
     </div>
 </div>
-<Memes @ref="Memes" ShowManageWorkflow="true" EditPostCallback="EditMode"></Memes>
+
+<BlogContainer @ref="Memes" ShowManageWorkflow="true" EditPostCallback="EditMode"></BlogContainer>

@@ -1,0 +1,10 @@
+﻿.lead {
+    font-style: oblique;
+}
+
+.blog-header {
+    text-align: center;
+    padding-top: 15px;
+    background-color: mintcream;
+    padding-bottom: 5px;
+}

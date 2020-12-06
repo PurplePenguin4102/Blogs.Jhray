@@ -15,7 +15,7 @@ namespace Blogs.Jhray.Pages.Memes
         [Inject]
         public BlogService BlogService { get; set; }
 
-        protected MemesBase Memes { get; set; }
+        protected BlogContainerBase Memes { get; set; }
         protected PostFormData PostFormData { get; set; } = new PostFormData();
         protected bool FormInvalid { get; set; } = true;
         protected EditContext EditContext;

@@ -8,9 +8,9 @@ using Markdig;
 using Blogs.Jhray.Database.Entities;
 using Microsoft.JSInterop;
 
-namespace Blogs.Jhray.Pages
+namespace Blogs.Jhray.Pages.Memes
 {
-    public class MemesBase : ComponentBase
+    public class BlogContainerBase : ComponentBase
     {
         protected List<Posts> blogPosts;
 

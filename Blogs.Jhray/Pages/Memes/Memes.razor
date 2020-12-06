@@ -1,41 +1,7 @@
 ﻿@page "/memes"
 @using Blogs.Jhray.Data
+@using Blogs.Jhray.Pages
 @using Markdig
-@inherits MemesBase
 
-<div class="blog-header jumbotron jumbotron-fluid">
-    <div class="container">
-        <h1 class="display-4">Meme Driven Development</h1>
-        <hr/>
-        <p class="lead">A blog well suited for members of the hidden society.</p>
-    </div>
-</div>
-<div class="blog container">
-    
-
-@if (blogPosts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    @foreach (var blogPost in blogPosts.OrderByDescending(d => d.PublishDate))
-    {
-    <div class="post mb-4">
-        @if (ShowManageWorkflow)
-        {
-        <AuthorizeView Policy="content-creator">
-            <div class="manage-console">
-                <button class="btn btn-danger delete-btn" @onclick="() => DeletePostById(blogPost.Id)">␡</button>
-                <button class="btn btn-warning edit-btn" @onclick="() => EditPostById(blogPost.Id)">✎</button>
-            </div>
-        </AuthorizeView>
-        }
-        <h2 class="post-title">@blogPost.Title</h2>
-        <h3 class="post-subtitle">@blogPost.Subtitle</h3>    
-        @((MarkupString) Markdown.ToHtml(blogPost.Content))
-        <hr />
-    </div>
-    }
-}
-</div>
+<BlogHeader/>
+<BlogContainer/>
