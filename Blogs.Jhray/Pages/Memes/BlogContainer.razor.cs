@@ -20,6 +20,9 @@ namespace Blogs.Jhray.Pages.Memes
         [Parameter]
         public EventCallback<long> EditPostCallback { get; set; }
 
+        [Parameter]
+        public long ShowId { get; set; } = -1;
+
         [Inject]
         public BlogService BlogService { get; set; }
 
@@ -28,13 +31,27 @@ namespace Blogs.Jhray.Pages.Memes
 
         protected override async Task OnInitializedAsync()
         {
-            ReloadPosts();
+            if (ShowId > -1)
+            {
+
+            }
+            else
+            {
+                ReloadPosts();
+            }
+            
             await Task.CompletedTask;
         }
 
         public void ReloadPosts()
         {
             blogPosts = BlogService.ListPosts().OrderByDescending(p => p.PublishDate).ToList();
+            StateHasChanged();
+        }
+
+        public void GetPostById()
+        {
+            blogPosts = BlogService.GetPost(ShowId);
             StateHasChanged();
         }
 
@@ -57,5 +74,7 @@ namespace Blogs.Jhray.Pages.Memes
             await EditPostCallback.InvokeAsync(id);
             await JSRuntime.InvokeAsync<object>("scrollTo", new object[] { 0, 0 });
         }
+
+
     }
 }

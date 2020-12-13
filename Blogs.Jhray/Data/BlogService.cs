@@ -47,6 +47,11 @@ namespace Blogs.Jhray.Data
             return newPost.Id;
         }
 
+        internal List<Posts> GetPost(long showId)
+        {
+            return new List<Posts> { _blogContext.Posts.Find(showId) };
+        }
+
         internal async Task<long> EditPost(PostFormData form)
         {
             var post = await _blogContext.Posts.FindAsync(form.Id);

@@ -16,6 +16,9 @@ namespace Blogs.Jhray.Database
 
         public virtual DbSet<ArInternalMetadata> ArInternalMetadata { get; set; }
         public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
         public new virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<BlogsJhrayUser> BlogsJhrayUsers { get; set; }

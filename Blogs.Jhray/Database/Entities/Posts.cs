@@ -14,5 +14,11 @@ namespace Blogs.Jhray.Database.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public bool? TopPost { get; set; }
+        public string DirectLink { get; set; }
+
+        public long BlogId { get; set; }
+        public Blog Blog { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }
