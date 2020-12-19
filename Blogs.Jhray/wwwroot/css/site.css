@@ -52,3 +52,19 @@ a, .btn-link {
     right: 0.75rem;
     top: 0.5rem;
 }
+
+
+blockquote {
+    position: relative;
+    display: inline-block;
+    background: #eee;
+    padding: 10px 10px 10px 60px;
+    border-radius: 10px;
+    font-family: 'Bitter', serif;
+    color: #333;
+    text-align: left;
+    box-shadow: 1px 1px 1px #999, 2px 2px 1px #999, 3px 3px 1px #999;
+    transition-duration: .3s;
+    margin: 16px 40px;
+}
+

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Blogs.Jhray.Data;
 using System.Threading.Tasks;
-using Markdig;
 using Blogs.Jhray.Database.Entities;
 using Microsoft.JSInterop;
 
@@ -13,7 +12,10 @@ namespace Blogs.Jhray.Pages.Memes
     public class BlogContainerBase : ComponentBase
     {
         protected List<Posts> blogPosts;
+        
 
+        [Parameter]
+        public bool AutoLoad { get; set; } = true;
         [Parameter]
         public bool ShowManageWorkflow { get; set; } = false;
 
@@ -21,7 +23,7 @@ namespace Blogs.Jhray.Pages.Memes
         public EventCallback<long> EditPostCallback { get; set; }
 
         [Parameter]
-        public long ShowId { get; set; } = -1;
+        public long ShowId { get; set; }
 
         [Inject]
         public BlogService BlogService { get; set; }
@@ -31,15 +33,18 @@ namespace Blogs.Jhray.Pages.Memes
 
         protected override async Task OnInitializedAsync()
         {
-            if (ShowId > -1)
+            if (AutoLoad)
             {
-
+                if (ShowId > 0)
+                {
+                    GetPostById();
+                }
+                else
+                {
+                    ReloadPosts();
+                }
+                
             }
-            else
-            {
-                ReloadPosts();
-            }
-            
             await Task.CompletedTask;
         }
 
@@ -49,9 +54,10 @@ namespace Blogs.Jhray.Pages.Memes
             StateHasChanged();
         }
 
-        public void GetPostById()
+        public void GetPostById(long? showId = null)
         {
-            blogPosts = BlogService.GetPost(ShowId);
+            ShowId = showId ?? ShowId;
+            blogPosts = new List<Posts> { BlogService.GetPostReadOnly(ShowId) };
             StateHasChanged();
         }
 
@@ -74,7 +80,5 @@ namespace Blogs.Jhray.Pages.Memes
             await EditPostCallback.InvokeAsync(id);
             await JSRuntime.InvokeAsync<object>("scrollTo", new object[] { 0, 0 });
         }
-
-
     }
 }

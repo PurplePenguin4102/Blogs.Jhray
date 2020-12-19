@@ -1,8 +1,10 @@
 ﻿using Blogs.Jhray.Data.Models;
 using Blogs.Jhray.Database;
 using Blogs.Jhray.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
@@ -12,14 +14,23 @@ namespace Blogs.Jhray.Data
     public class BlogService
     {
         private readonly BlogContext _blogContext;
-        public BlogService(BlogContext blogContext)
+        private readonly DapperService _dapperService;
+        public BlogService(BlogContext blogContext, DapperService dapperService)
         {
             _blogContext = blogContext;
+            _dapperService = dapperService;
+        }
+
+        internal long GetRandomPostId()
+        {
+            var post = _dapperService.GetRandomPostId();
+            return post;
         }
 
         public List<Posts> ListPosts()
         {
-            return _blogContext.Posts.ToList();
+            var retVal = _blogContext.Posts.ToList();
+            return retVal;
         }
 
         public async Task DeletePostById(long id)
@@ -39,6 +50,7 @@ namespace Blogs.Jhray.Data
                 PublishDate = posts.PublishDate,
                 Published = posts.Published,
                 TopPost = false,
+                BlogId = posts.BlogId,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
@@ -47,9 +59,10 @@ namespace Blogs.Jhray.Data
             return newPost.Id;
         }
 
-        internal List<Posts> GetPost(long showId)
+        internal Posts GetPostReadOnly(long id)
         {
-            return new List<Posts> { _blogContext.Posts.Find(showId) };
+            var post = _dapperService.FindPost(id);
+            return post;
         }
 
         internal async Task<long> EditPost(PostFormData form)
@@ -62,6 +75,7 @@ namespace Blogs.Jhray.Data
             post.Published = form.Published;
             post.TopPost = false;
             post.UpdatedAt = DateTime.Now;
+            post.BlogId = form.BlogId;
             
             await _blogContext.SaveChangesAsync();
             return post.Id;
@@ -69,7 +83,8 @@ namespace Blogs.Jhray.Data
 
         internal async Task<Posts> Find(long id)
         {
-            return await _blogContext.Posts.FindAsync(id);
+            var retVal = await _blogContext.Posts.FindAsync(id);
+            return retVal;
         }
     }
 }

@@ -55,6 +55,7 @@ namespace Blogs.Jhray
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<BlogsJhrayUser>>();
             services.AddScoped<BlogService>();
+            services.AddTransient(svc => new DapperService(cn));
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("content-creator", policy 
