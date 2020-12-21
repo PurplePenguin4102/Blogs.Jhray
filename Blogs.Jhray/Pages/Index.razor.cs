@@ -15,13 +15,9 @@ namespace Blogs.Jhray.Pages
         [Inject]
         protected BlogService Blogs { get; set; }
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override void OnInitialized()
         {
-            if (firstRender)
-            {
-                RandomId = Blogs.GetRandomPostId();
-                BlogContainer.GetPostById(RandomId);
-            }
+            RandomId = Blogs.GetRandomPostId();
         }
     }
 }
