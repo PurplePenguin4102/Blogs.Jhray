@@ -362,5 +362,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 deploy
-Blogs.Jhray/wwwroot/css/site.min.js
-Blogs.Jhray/wwwroot/js/site.min.css
+*site.min.js
+*site.min.css
