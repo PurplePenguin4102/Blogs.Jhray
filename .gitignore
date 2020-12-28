@@ -374,3 +374,6 @@ FodyWeavers.xsd
     Blog
     About
 
+deploy
+Blogs.Jhray/wwwroot/css/site.min.js
+Blogs.Jhray/wwwroot/js/site.min.css

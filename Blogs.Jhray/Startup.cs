@@ -25,6 +25,7 @@ using Blogs.Jhray.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authorization;
 using Blogs.Jhray.Security;
 using Microsoft.JSInterop;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace Blogs.Jhray
 {
@@ -61,9 +62,10 @@ namespace Blogs.Jhray
                 options.AddPolicy("content-creator", policy 
                     => policy.Requirements.Add(new EmailRequirement("joseph.h.ray@protonmail.com")));
             });
-
             services.AddSingleton<IAuthorizationHandler, EmailHandler>();
-
+            services.AddResponseCompression(options => 
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "image/svg+xml", "image/x-icon" }));
             services
               .AddBlazorise(options =>
               {
@@ -87,6 +89,7 @@ namespace Blogs.Jhray
                 app.UseHsts();
             }
 
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseRouting();
 

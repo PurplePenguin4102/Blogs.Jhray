@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="BundleMinify" AfterTargets="_CopyResolvedFilesToPublishPreserveNewest" DependsOnTargets="_CopyResolvedFilesToPublishPreserveNewest" Condition="'$(RunBundleMinify)' != 'False'">
+    <Message Text="$(PublishDir)" Importance="high"/>
+    <Message Text="Hello Brenton and Joey :P" Importance="high"/>
+    <BundlerMinifier.BundlerBuildTask FileName="$(PublishDir)\bundleconfig.json" />
+  </Target>
+</Project>

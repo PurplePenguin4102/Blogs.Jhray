@@ -22,29 +22,23 @@ namespace Blogs.Jhray.Database
 
         public long GetRandomPostId()
         {
-            using (var conn = new NpgsqlConnection(_cn))
-            {
-                conn.Open();
-                return conn.QuerySingle<long>(_randomPostId);
-            }
+            using var conn = new NpgsqlConnection(_cn);
+            conn.Open();
+            return conn.QuerySingle<long>(_randomPostId);
         }
 
         public Posts FindPost(long id)
         {
-            using (var conn = new NpgsqlConnection(_cn))
-            {
-                conn.Open();
-                return conn.QuerySingle<Posts>(_getPost, new { id });
-            }
+            using var conn = new NpgsqlConnection(_cn);
+            conn.Open();
+            return conn.QuerySingle<Posts>(_getPost, new { id });
         }
 
         public List<Posts> ListPosts()
         {
-            using (var conn = new NpgsqlConnection(_cn))
-            {
-                conn.Open();
-                return conn.Query<Posts>(_getPosts).ToList();
-            }
+            using var conn = new NpgsqlConnection(_cn);
+            conn.Open();
+            return conn.Query<Posts>(_getPosts).ToList();
         }
     }
 }

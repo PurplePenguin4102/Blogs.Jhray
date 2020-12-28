@@ -11,7 +11,7 @@
             {
                 ToggleNavMenu();
             })">
-                <span class=@chevron></span>
+                <i class=@chevron></i>
             </button>
             <LoginDisplay />
             <a class="btn btn-outline-light" style="position: fixed; right: 25px;" href="https://jhray.com" target="_blank">JHRay.Com</a>
@@ -22,7 +22,7 @@
     </div>
 </div>
 @code {
-    private string chevronBase = "oi oi-chevron-";
+    private string chevronBase = "fas fa-chevron-";
     private string direc = "left";
     private string chevron => chevronBase + direc;
     private string NavCollapse = "";
