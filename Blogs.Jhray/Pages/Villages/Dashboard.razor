@@ -1,0 +1,18 @@
+﻿@page "/villages"
+@inherits DashboardBase
+<h3>Dashboard</h3>
+
+<button @onclick="GrpcCall">grpc call</button>
+@{
+lock (_lock)
+{
+    foreach (var resp in @GrpcResponse)
+    {
+<code style="color:@resp.Color">@resp.Message</code>
+    }
+}
+}
+
+@code {
+    
+}

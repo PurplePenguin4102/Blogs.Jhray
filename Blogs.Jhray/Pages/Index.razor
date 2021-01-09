@@ -2,4 +2,7 @@
 @using Blogs.Jhray.Pages.Memes
 @page "/"
 
-<BlogContainer @ref="BlogContainer" ShowId="RandomId"></BlogContainer>
+<i class="fas fa-hand-point-left" @onclick="() => GetPost(GetPostOpt.Previous)"></i>
+<i class="fas fa-random" @onclick="() => GetPost(GetPostOpt.Random)"></i>
+<i class="fas fa-hand-point-right" @onclick="() => GetPost(GetPostOpt.Next)"></i>
+<BlogContainer @ref="BlogContainer" ShowId="LatestPostId"></BlogContainer>

@@ -27,6 +27,18 @@ namespace Blogs.Jhray.Data
             return post;
         }
 
+        internal long GetLatestPostId()
+        {
+            var post = _dapperService.GetLatestPostId();
+            return post;
+        }
+
+        internal List<long> ListPostIds()
+        {
+            var posts = _dapperService.ListPostIds();
+            return posts.ToList();
+        }
+
         public List<Posts> ListPosts()
         {
             var retVal = _blogContext.Posts.ToList();
