@@ -22,15 +22,52 @@ namespace Blogs.Jhray.Pages.Villages
 
         protected object _lock = new object();
         protected List<Response> GrpcResponse { get; set; } = new List<Response>();
+        protected List<Response> PirateResponse { get; set; } = new List<Response>();
+        protected List<Response> NinjaResponse { get; set; } = new List<Response>();
+        protected List<Response> VikingResponse { get; set; } = new List<Response>();
         //var chan = GrpcChannel.ForAddress("https://jhray.com:1443", new GrpcChannelOptions());
         private GrpcChannel Channel = GrpcChannel.ForAddress("http://localhost:7777", new GrpcChannelOptions());
-        protected async Task GrpcCall()
+        
+        protected void Stop()
         {
             if (_cts != null)
             {
                 _cts.Cancel();
             }
-            GrpcResponse.Clear();
+        }
+
+        protected void Clear()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+            }
+            if (_lock != null)
+            {
+                lock(_lock)
+                {
+                    GrpcResponse.Clear();
+                    PirateResponse.Clear();
+                    VikingResponse.Clear();
+                    NinjaResponse.Clear();
+                }
+            }
+            else
+            {
+                GrpcResponse.Clear();
+                PirateResponse.Clear();
+                VikingResponse.Clear();
+                NinjaResponse.Clear();
+            }
+        }
+
+        protected async Task Start()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+            }
+            Clear();
             StateHasChanged();
             
             _cts = new CancellationTokenSource();
@@ -38,25 +75,26 @@ namespace Blogs.Jhray.Pages.Villages
 
             await Task.WhenAll(Task.Run(async () =>
             {
-                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Vikings", People = 200 }), "green");
+                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Vikings", People = 200 }), "#a7f29c", VikingResponse);
             }, _cts.Token),
             Task.Run(async () =>
             {
-                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Ninjas", People = 200 }), "blue");
+                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Ninjas", People = 200 }), "#a8d2f5", NinjaResponse);
             }, _cts.Token),
             Task.Run(async () =>
             {
-                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Pirates", People = 200 }), "magenta");
+                await VillageStream(_cts, create.StartVillage(new VillageStartup { Name = "Pirates", People = 200 }), "#f59c9c", PirateResponse);
             }, _cts.Token));
             StateHasChanged();
         }
 
-        private async Task VillageStream(CancellationTokenSource cts, AsyncServerStreamingCall<VillageStatus> stream, string color)
+        private async Task VillageStream(CancellationTokenSource cts, AsyncServerStreamingCall<VillageStatus> stream, string color, List<Response> queue)
         {
             try
             {
                 var sw = Stopwatch.StartNew();
                 var villageStatus = new VillageStatus();
+                var ct = 0;
                 while (await stream.ResponseStream.MoveNext(cts.Token))
                 {
                     villageStatus = stream.ResponseStream.Current;
@@ -64,15 +102,28 @@ namespace Blogs.Jhray.Pages.Villages
                     {
                         lock (_lock)
                         {
-                            GrpcResponse.Add(new Response { Message = $"({sw.ElapsedMilliseconds,-4}ms):: {villageStatus.Message}", Color = color });
+                            var rsp = new Response { Message = $"({sw.ElapsedMilliseconds,-4}ms):: {villageStatus.Message}", Color = color };
+                            GrpcResponse.Insert(0, rsp);
+                            queue.Insert(0, rsp);
+                            if (ct >= 1000)
+                            {
+                                GrpcResponse.RemoveAt(GrpcResponse.Count - 1);
+                                queue.RemoveAt(queue.Count - 1);
+                            }
                         }
                         await InvokeAsync(() => StateHasChanged());
                         sw.Restart();
                     }
+                    if (ct < 1000)
+                    {
+                        ct++;
+                    }
                 }
                 lock (_lock)
                 {
-                    GrpcResponse.Add(new Response { Message = $"({sw.ElapsedMilliseconds,-4}ms):: {villageStatus.Time}", Color = color });
+                    var rsp = new Response { Message = $"({sw.ElapsedMilliseconds,-4}ms):: {villageStatus.Time}", Color = color };
+                    GrpcResponse.Insert(0, rsp);
+                    queue.Insert(0, rsp);
                 }
             }
             catch
@@ -83,7 +134,11 @@ namespace Blogs.Jhray.Pages.Villages
 
         public void Dispose()
         {
-            _cts.Cancel();
+            if (_cts != null)
+            {
+                _cts.Cancel();
+            }
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,18 +1,69 @@
 ﻿@page "/villages"
 @inherits DashboardBase
-<h3>Dashboard</h3>
+<div class="container">
+    <h3 class="card-header">Villages</h3>
+    <p class="text-body" style="padding-bottom:20px; padding-top:20px;">Villages is a simple game of life simulation. The simulation will create three villages, the pirates, ninjas and vikings. Each village is represented virtually by three separate connections to a grpc program that will run a game of life simulation and report back independently on their own connection. Demonstrating the power of microservice architecture, we send only one request to each village, and each village is then responsible for its own stateful manipulation, able to stream back to us the state as it changes. This means that the client has no requirement of being able to store or maintain the state of the program. Conversely, the villages will keep running, totally unaware of other villages that may finish before them. The simulation will end if you navigate away, close the browser or stop it yourself</p>
+    <div class="row justify-content-md-center">
+        <button class="btn btn-light col-3" @onclick="Start">Create Villages</button>
+        <button class="btn btn-light col-3" @onclick="Stop">Stop</button>
+    </div>
 
-<button @onclick="GrpcCall">grpc call</button>
-@{
-lock (_lock)
-{
-    foreach (var resp in @GrpcResponse)
-    {
-<code style="color:@resp.Color">@resp.Message</code>
-    }
-}
-}
+    <h4>Full Log</h4>
+    <div class="village-log">
+        @{
+            lock (_lock)
+            {
+                foreach (var resp in @GrpcResponse)
+                {
+                    <code style="color:@resp.Color">@resp.Message</code>
+                }
+            }
+        }
+    </div>
+    <div class="row">
 
-@code {
-    
-}
+        <div class="col-4">
+            <h4>Pirates</h4>
+            <div class="village-log">
+                @{
+                    lock (_lock)
+                    {
+                        foreach (var resp in PirateResponse)
+                        {
+                            <code style="color:@resp.Color">@resp.Message</code>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-4">
+            <h4>Ninjas</h4>
+            <div class="village-log">
+                @{
+                    lock (_lock)
+                    {
+                        foreach (var resp in NinjaResponse)
+                        {
+                            <code style="color:@resp.Color">@resp.Message</code>
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-4">
+            <h4>Vikings</h4>
+            <div class="village-log">
+                @{
+                    lock (_lock)
+                    {
+                        foreach (var resp in VikingResponse)
+                        {
+                            <code style="color:@resp.Color">@resp.Message</code>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,3 +1,9 @@
 ﻿code {
     display:block;
 }
+.village-log {
+    overflow: auto;
+    height: 20vh;
+    background-color: #024;
+    resize: both;
+}
