@@ -43,14 +43,23 @@ namespace Blogs.Jhray.Pages.Memes
                 {
                     ReloadPosts();
                 }
-                
             }
             await Task.CompletedTask;
         }
 
         public void ReloadPosts()
         {
-            blogPosts = BlogService.ListPosts().OrderByDescending(p => p.PublishDate).ToList();
+            //only load one
+            var postId = BlogService.GetLatestPostId();
+            blogPosts = new List<Posts> { BlogService.GetPostReadOnly(postId) };
+            // lazy load the rest
+            Task.Run(async () =>
+            {
+                blogPosts.AddRange(BlogService.ListPosts().OrderByDescending(p => p.PublishDate).ToList());
+                await InvokeAsync(() => StateHasChanged());
+            });
+
+            
             StateHasChanged();
         }
 
