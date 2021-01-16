@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Blogs.Jhray.Data;
+using Blogs.Jhray.Services;
 using Blogs.Jhray.Pages.Memes;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Components;

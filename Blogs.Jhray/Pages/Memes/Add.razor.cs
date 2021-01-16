@@ -1,5 +1,5 @@
-﻿using Blogs.Jhray.Data;
-using Blogs.Jhray.Data.Models;
+﻿using Blogs.Jhray.Services;
+using Blogs.Jhray.Services.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;

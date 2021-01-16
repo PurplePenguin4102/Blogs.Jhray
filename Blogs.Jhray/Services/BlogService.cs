@@ -1,4 +1,4 @@
-﻿using Blogs.Jhray.Data.Models;
+﻿using Blogs.Jhray.Services.Models;
 using Blogs.Jhray.Database;
 using Blogs.Jhray.Database.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 
-namespace Blogs.Jhray.Data
+namespace Blogs.Jhray.Services
 {
     public class BlogService
     {

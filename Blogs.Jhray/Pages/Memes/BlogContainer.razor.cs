@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Blogs.Jhray.Data;
+using Blogs.Jhray.Services;
 using System.Threading.Tasks;
 using Blogs.Jhray.Database.Entities;
 using Microsoft.JSInterop;

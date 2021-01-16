@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Blogs.Jhray.Data;
+using Blogs.Jhray.Services;
 using Blogs.Jhray.Database;
 using Microsoft.EntityFrameworkCore;
 using Blogs.Jhray.Database.Entities;
