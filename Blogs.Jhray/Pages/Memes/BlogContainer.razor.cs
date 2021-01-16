@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Blogs.Jhray.Services;
 using System.Threading.Tasks;
-using Blogs.Jhray.Database.Entities;
+using Blogs.Jhray.Persistence.Database.Entities;
 using Microsoft.JSInterop;
 
 namespace Blogs.Jhray.Pages.Memes

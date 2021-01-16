@@ -26,7 +26,7 @@ namespace Blogs.Jhray.Pages.Villages
         protected List<Response> NinjaResponse { get; set; } = new List<Response>();
         protected List<Response> VikingResponse { get; set; } = new List<Response>();
         //var chan = GrpcChannel.ForAddress("https://jhray.com:1443", new GrpcChannelOptions());
-        private GrpcChannel Channel = GrpcChannel.ForAddress("http://localhost:7777", new GrpcChannelOptions());
+        private readonly GrpcChannel Channel = GrpcChannel.ForAddress("http://localhost:7777", new GrpcChannelOptions());
         
         protected void Stop()
         {

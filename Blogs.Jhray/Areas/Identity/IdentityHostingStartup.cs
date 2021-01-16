@@ -1,6 +1,6 @@
 ﻿using System;
-using Blogs.Jhray.Database;
-using Blogs.Jhray.Database.Entities;
+using Blogs.Jhray.Persistence.Database;
+using Blogs.Jhray.Persistence.Database.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

@@ -1,6 +1,6 @@
 ﻿using Blogs.Jhray.Services.Models;
-using Blogs.Jhray.Database;
-using Blogs.Jhray.Database.Entities;
+using Blogs.Jhray.Persistence.Database;
+using Blogs.Jhray.Persistence.Database.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

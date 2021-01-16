@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Blogs.Jhray.Database.Entities;
+using Blogs.Jhray.Persistence.Database.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace Blogs.Jhray.Database
+namespace Blogs.Jhray.Persistence.Database
 {
     public partial class BlogContext : IdentityDbContext<BlogsJhrayUser>
     {

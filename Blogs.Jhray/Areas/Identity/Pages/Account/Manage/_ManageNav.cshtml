@@ -1,4 +1,4 @@
-﻿@using Blogs.Jhray.Database.Entities
+﻿@using Blogs.Jhray.Persistence.Database.Entities
 @inject SignInManager<BlogsJhrayUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

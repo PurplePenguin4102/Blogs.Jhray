@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blogs.Jhray.Database.Entities
+namespace Blogs.Jhray.Persistence.Database.Entities
 {
     public class Image
     {

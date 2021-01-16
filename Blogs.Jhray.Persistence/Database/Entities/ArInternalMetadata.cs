@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Blogs.Jhray.Database.Entities
+namespace Blogs.Jhray.Persistence.Database.Entities
 {
     public partial class ArInternalMetadata
     {

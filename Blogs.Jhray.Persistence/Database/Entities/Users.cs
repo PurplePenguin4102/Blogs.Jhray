@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 
-namespace Blogs.Jhray.Database.Entities
+namespace Blogs.Jhray.Persistence.Database.Entities
 {
     public partial class Users
     {

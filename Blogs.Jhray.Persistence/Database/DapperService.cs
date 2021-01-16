@@ -1,4 +1,4 @@
-﻿using Blogs.Jhray.Database.Entities;
+﻿using Blogs.Jhray.Persistence.Database.Entities;
 using Dapper;
 using Npgsql;
 using System;
@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blogs.Jhray.Database
+namespace Blogs.Jhray.Persistence.Database
 {
     public class DapperService
     {
-        private string _cn;
+        private readonly string _cn;
 
         private readonly string _getPost = "SELECT * FROM posts WHERE id = @Id";
         private readonly string _getPosts = "SELECT * FROM posts";
