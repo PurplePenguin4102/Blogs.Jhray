@@ -23,7 +23,6 @@ using Blazorise.Icons.FontAwesome;
 using Microsoft.Extensions.Logging;
 using Blogs.Jhray.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Authorization;
-using Blogs.Jhray.Security;
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.ResponseCompression;
 
@@ -56,7 +55,11 @@ namespace Blogs.Jhray
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<BlogsJhrayUser>>();
             services.AddScoped<BlogService>();
-            services.AddTransient(svc => new DapperService(cn));
+            services.AddTransient<IDapperService<long>, DapperService<long>>();
+            services.AddTransient<IDapperService<Posts>, DapperService<Posts>>();
+            services.AddTransient<IDapperService<Blog>, DapperService<Blog>>();
+            services.AddTransient<IPostsService, PostsService>();
+            services.AddTransient<IBlogMetadataService, BlogMetadataService>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("content-creator", policy 

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using Blogs.Jhray.Persistence.Database.Entities;
 using Microsoft.JSInterop;
 
-namespace Blogs.Jhray.Pages.Memes
+namespace Blogs.Jhray.Pages.BlogContent
 {
-    public class BlogContainerBase : ComponentBase
+    public partial class BlogContainer : ComponentBase
     {
         protected List<Posts> blogPosts;
         
+        [Parameter]
+        public long BlogId { get; set; } = 1;
 
         [Parameter]
         public bool AutoLoad { get; set; } = true;
@@ -50,16 +52,14 @@ namespace Blogs.Jhray.Pages.Memes
         public void ReloadPosts()
         {
             //only load one
-            var postId = BlogService.GetLatestPostId();
+            var postId = BlogService.GetLatestPostId(BlogId);
             blogPosts = new List<Posts> { BlogService.GetPostReadOnly(postId) };
             // lazy load the rest
             Task.Run(async () =>
             {
-                blogPosts.AddRange(BlogService.ListPosts().OrderByDescending(p => p.PublishDate).ToList());
+                blogPosts.AddRange(BlogService.ListPosts(BlogId).OrderByDescending(p => p.PublishDate).ToList());
                 await InvokeAsync(() => StateHasChanged());
             });
-
-            
             StateHasChanged();
         }
 
@@ -70,9 +70,9 @@ namespace Blogs.Jhray.Pages.Memes
             StateHasChanged();
         }
 
-        public void ReloadPostById(long id)
+        public void ReloadPostById()
         {
-            blogPosts = BlogService.ListPosts();
+            blogPosts = BlogService.ListPosts(BlogId);
         }
 
         public async Task DeletePostById(long id)

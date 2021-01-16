@@ -1,5 +1,5 @@
 ﻿@page "/villages"
-@inherits DashboardBase
+
 <div class="container">
     <h3 class="card-header">Villages</h3>
     <p class="text-body" style="padding-bottom:20px; padding-top:20px;">Villages is a simple game of life simulation. The simulation will create three villages, the pirates, ninjas and vikings. Each village is represented virtually by three separate connections to a grpc program that will run a game of life simulation and report back independently on their own connection. Demonstrating the power of microservice architecture, we send only one request to each village, and each village is then responsible for its own stateful manipulation, able to stream back to us the state as it changes. This means that the client has no requirement of being able to store or maintain the state of the program. Conversely, the villages will keep running, totally unaware of other villages that may finish before them. The simulation will end if you navigate away, close the browser or stop it yourself</p>

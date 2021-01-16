@@ -1,5 +1,6 @@
 ﻿using Blogs.Jhray.Persistence.Database.Entities;
 using Dapper;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -8,53 +9,29 @@ using System.Threading.Tasks;
 
 namespace Blogs.Jhray.Persistence.Database
 {
-    public class DapperService
+    public class DapperService<T> : IDapperService<T>
     {
         private readonly string _cn;
 
-        private readonly string _getPost = "SELECT * FROM posts WHERE id = @Id";
-        private readonly string _getPosts = "SELECT * FROM posts";
-        private readonly string _randomPostId = "SELECT id FROM posts ORDER BY RANDOM() LIMIT 1";
-        private readonly string _latestPostId = "SELECT id FROM posts ORDER BY publish_date DESC LIMIT 1";
-        private readonly string _allPostId = "SELECT id FROM posts ORDER BY publish_date";
-        public DapperService(string cn)
+        public DapperService(IConfiguration cn)
         {
-            _cn = cn;
+            _cn = cn.GetConnectionString("DefaultConnection");
         }
 
-        public long GetLatestPostId()
+        public T QuerySingle(string query, object param = null)
         {
             using var conn = new NpgsqlConnection(_cn);
             conn.Open();
-            return conn.QuerySingle<long>(_latestPostId);
+            return conn.QuerySingle<T>(query, param);
         }
 
-        public IEnumerable<long> ListPostIds()
+        public IEnumerable<T> Query(string query, object param = null)
         {
             using var conn = new NpgsqlConnection(_cn);
             conn.Open();
-            return conn.Query<long>(_allPostId);
+            return conn.Query<T>(query, param);
         }
 
-        public long GetRandomPostId()
-        {
-            using var conn = new NpgsqlConnection(_cn);
-            conn.Open();
-            return conn.QuerySingle<long>(_randomPostId);
-        }
 
-        public Posts FindPost(long id)
-        {
-            using var conn = new NpgsqlConnection(_cn);
-            conn.Open();
-            return conn.QuerySingle<Posts>(_getPost, new { id });
-        }
-
-        public List<Posts> ListPosts()
-        {
-            using var conn = new NpgsqlConnection(_cn);
-            conn.Open();
-            return conn.Query<Posts>(_getPosts).ToList();
-        }
     }
 }

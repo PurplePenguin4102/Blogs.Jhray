@@ -11,7 +11,7 @@ namespace Blogs.Jhray.Services.Models
         public long Id { get; set; }
 
         [Required]
-        public long BlogId { get; set; } = 1;
+        public long BlogId { get; set; }
 
         [Required]
         [StringLength(maximumLength: 999, ErrorMessage = "Try again bucko!", MinimumLength = 5)]

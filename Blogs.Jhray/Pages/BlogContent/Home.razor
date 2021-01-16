@@ -1,0 +1,15 @@
+﻿@page "/{HomeUrl}"
+@using Markdig
+
+@if (_isFound)
+{
+    <BlogHeader Title="@Blog.Title" LeadIn="@Blog.LeadIn" />
+    <BlogContainer />
+}
+else
+{
+    <div class="container">
+        <h1>Blog not found...</h1>
+    </div>
+
+}

@@ -1,25 +1,27 @@
-﻿<AuthorizeView Policy="content-creator">
+﻿
+<AuthorizeView Policy="content-creator">
     <Authorized>
         <ul>
             <li class="first">
-                <NavLink class="nav-link" href="memes">
-                    <i class="fas fa-memory" aria-hidden="true"></i>Memes
+                <NavLink class="nav-link" href="@BlogNavigation">
+                    <i class="fas fa-memory" aria-hidden="true"></i>@BlogNavigation
                 </NavLink>
             </li>
             <li class="modify">
-                <NavLink class="nav-link" href="memes/add">
+                <NavLink class="nav-link" href="@{$"{BlogNavigation}/add"}">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </NavLink>
             </li>
         </ul>
     </Authorized>
     <NotAuthorized>
-        <NavLink class="nav-link" href="memes">
-            <i class="fas fa-memory" aria-hidden="true"></i>Memes
+        <NavLink class="nav-link" href="@BlogNavigation">
+            <i class="fas fa-memory" aria-hidden="true"></i>@BlogNavigation
         </NavLink>
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-
+    [Parameter]
+    public string BlogNavigation { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using Blogs.Jhray.Services;
+﻿using Blogs.Jhray.Persistence.Database.Entities;
+using Blogs.Jhray.Services;
 using Blogs.Jhray.Services.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -8,28 +9,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blogs.Jhray.Pages.Memes
+namespace Blogs.Jhray.Pages.BlogContent
 {
-    public class AddBase : ComponentBase
+    public partial class Add : ComponentBase
     {
         [Inject]
         public BlogService BlogService { get; set; }
-
-        protected BlogContainerBase Memes { get; set; }
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+        [Parameter]
+        public string HomeUrl { get; set; }
+        public Blog Blog { get; set; }
+        protected BlogContainer BlogContainer { get; set; }
         protected PostFormData PostFormData { get; set; } = new PostFormData();
         protected bool FormInvalid { get; set; } = true;
         protected EditContext EditContext;
-
         protected bool IsDirty => EditContext.IsModified();
         protected bool IsEdit { get; set; }
-
-        [Inject]
-        public IJSRuntime JSRuntime { get; set; }
 
         protected override void OnInitialized()
         {
             EditContext = new EditContext(PostFormData);
             EditContext.OnFieldChanged += HandleFieldChanged;
+            Blog = BlogService.GetBlogMetadata(HomeUrl);
         }
 
         protected async Task ResetForm()
@@ -45,19 +47,18 @@ namespace Blogs.Jhray.Pages.Memes
 
         protected async Task HandleValidSubmit()
         {
+            PostFormData.BlogId = Blog.Id;
             await BlogService.AddPost(PostFormData);
-            Memes.ReloadPosts();
+            BlogContainer.ReloadPosts();
             await ReinitializeForm();
         }
 
         protected async Task HandleValidEdit()
         {
             await BlogService.EditPost(PostFormData);
-            Memes.ReloadPosts();
+            BlogContainer.ReloadPosts();
             await ReinitializeForm();
         }
-
-        
 
         protected async Task EditMode(long id)
         {
@@ -66,7 +67,6 @@ namespace Blogs.Jhray.Pages.Memes
                 return;
             }
             await ReinitializeForm(id);
-            
         }
 
         private async Task ReinitializeForm(long? id = null)
@@ -82,6 +82,7 @@ namespace Blogs.Jhray.Pages.Memes
                 PostFormData.Published = post.Published ?? false;
                 PostFormData.Subtitle = post.Subtitle;
                 PostFormData.Title = post.Title;
+                PostFormData.BlogId = Blog.Id;
             }
             IsEdit = id.HasValue;
             EditContext = new EditContext(PostFormData);

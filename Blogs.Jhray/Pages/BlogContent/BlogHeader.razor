@@ -1,0 +1,15 @@
+﻿<div class="blog-header jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">@Title</h1>
+        <hr />
+        <p class="lead">@LeadIn</p>
+    </div>
+</div>
+
+@code{
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string LeadIn { get; set; }
+}

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Blogs.Jhray.Pages.Villages
 {
-    public class DashboardBase : ComponentBase, IDisposable
+    public partial class Dashboard : ComponentBase, IDisposable
     {
         private CancellationTokenSource _cts;
         protected class Response

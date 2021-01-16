@@ -14,34 +14,50 @@ namespace Blogs.Jhray.Services
     public class BlogService
     {
         private readonly BlogContext _blogContext;
-        private readonly DapperService _dapperService;
-        public BlogService(BlogContext blogContext, DapperService dapperService)
+        private readonly IPostsService _postsService;
+        public BlogService(BlogContext blogContext, IPostsService postsService)
         {
             _blogContext = blogContext;
-            _dapperService = dapperService;
+            _postsService = postsService;
+        }
+
+        internal Blog GetBlogMetadata(string homeUrl)
+        {
+            var retVal = _blogContext.Blogs.Where(b => b.HomeUrl == homeUrl);
+            if (retVal.Any())
+            {
+                return retVal.First();
+            }
+            throw new KeyNotFoundException();
+        }
+
+        internal List<Blog> ListBlogs()
+        {
+            var retVal = _blogContext.Blogs.ToList();
+            return retVal;
         }
 
         internal long GetRandomPostId()
         {
-            var post = _dapperService.GetRandomPostId();
+            var post = _postsService.GetRandomPostId();
             return post;
         }
 
-        internal long GetLatestPostId()
+        internal long GetLatestPostId(long blogId = 1)
         {
-            var post = _dapperService.GetLatestPostId();
+            var post = _postsService.GetLatestPostId(blogId);
             return post;
         }
 
         internal List<long> ListPostIds()
         {
-            var posts = _dapperService.ListPostIds();
+            var posts = _postsService.ListPostIds();
             return posts.ToList();
         }
 
-        public List<Posts> ListPosts()
+        public List<Posts> ListPosts(long blogId = 1)
         {
-            var retVal = _blogContext.Posts.ToList();
+            var retVal = _blogContext.Posts.Where(b => b.BlogId == blogId).ToList();
             return retVal;
         }
 
@@ -73,7 +89,7 @@ namespace Blogs.Jhray.Services
 
         internal Posts GetPostReadOnly(long id)
         {
-            var post = _dapperService.FindPost(id);
+            var post = _postsService.FindPost(id);
             return post;
         }
 

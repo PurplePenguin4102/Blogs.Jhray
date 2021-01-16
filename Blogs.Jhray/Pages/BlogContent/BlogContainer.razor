@@ -1,9 +1,4 @@
-﻿@using Blogs.Jhray.Services
-@using Blogs.Jhray.Pages
-@using Markdig
-@inherits BlogContainerBase
-
-<div class="blog container">
+﻿<div class="blog container">
     @if (blogPosts != null)
     {
         @foreach (var blogPost in blogPosts.OrderByDescending(d => d.PublishDate))

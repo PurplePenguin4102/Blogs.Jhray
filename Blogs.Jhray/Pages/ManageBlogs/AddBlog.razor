@@ -1,0 +1,49 @@
+﻿@page "/AddBlog"
+<div class="container">
+    <h3>Add Blog</h3>
+
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableHeaderCell>
+                    Id
+                </TableHeaderCell>
+                <TableHeaderCell>
+                    Author
+                </TableHeaderCell>
+                <TableHeaderCell>
+                    HomeUrl
+                </TableHeaderCell>
+                <TableHeaderCell>
+                    Title
+                </TableHeaderCell>
+                <TableHeaderCell>
+                    LeadIn
+                </TableHeaderCell>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            @foreach (var blog in Blogs)
+            {
+                <TableRow>
+                    <TableRowCell>
+                        @blog.Id
+                    </TableRowCell>
+                    <TableRowCell>
+                        @blog.Author
+                    </TableRowCell>
+                    <TableRowCell>
+                        @blog.HomeUrl
+                    </TableRowCell>
+                    <TableRowCell>
+                        @blog.Title
+                    </TableRowCell>
+                    <TableRowCell>
+                        @blog.LeadIn
+                    </TableRowCell>
+                </TableRow>
+            }
+        </TableBody>
+    </Table>
+
+</div>

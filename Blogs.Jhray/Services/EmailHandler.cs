@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Blogs.Jhray.Security
+namespace Blogs.Jhray.Services
 {
     public class EmailHandler : IAuthorizationHandler
     {

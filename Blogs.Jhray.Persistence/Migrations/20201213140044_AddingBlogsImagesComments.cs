@@ -156,7 +156,6 @@ namespace Blogs.Jhray.Persistence.Migrations
 
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-#pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityByDefaultColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
@@ -715,7 +714,6 @@ namespace Blogs.Jhray.Persistence.Migrations
             {
                 b.Navigation("Comments");
             });
-#pragma warning restore 612, 618
         }
     }
 }

@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Blogs.Jhray.Services;
-using Blogs.Jhray.Pages.Memes;
-using Grpc.Net.Client;
+using Blogs.Jhray.Pages.BlogContent;
 using Microsoft.AspNetCore.Components;
-using Blogs.Jhray.Services.GRPC;
-using System.Diagnostics;
 
 namespace Blogs.Jhray.Pages
 {
-    public class IndexBase : ComponentBase
+    public partial class Index : ComponentBase
     {
-        protected BlogContainerBase BlogContainer { get; set; }
+        protected BlogContainer BlogContainer { get; set; }
         protected long LatestPostId { get; set; } = -1;
         private int _currentPostIdx;
         private List<long> _postIds;

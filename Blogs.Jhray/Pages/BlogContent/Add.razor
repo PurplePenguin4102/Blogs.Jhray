@@ -1,8 +1,6 @@
-﻿@page "/memes/add"
-@using Blogs.Jhray.Pages
-@inherits AddBase
+﻿@page "/{HomeUrl}/add"
 
-<BlogHeader />
+<BlogHeader Title="@Blog.Title" LeadIn="@Blog.LeadIn" />
 
 <div class="container">
     <div class="card mb-4">
@@ -14,7 +12,7 @@
             }
             else
             {
-                <span class="card-title text-left">New Post in Memes: @PostFormData.Title</span>
+                <span class="card-title text-left">New Post in @Blog.HomeUrl: @PostFormData.Title</span>
             }
         </div>
         <div class="card-body">
@@ -48,6 +46,7 @@
                     Is Published
                     <InputCheckbox @bind-Value="PostFormData.Published"></InputCheckbox>
                 </Label>
+
                 <div class="form-row">
                     @if (IsEdit)
                     {
@@ -63,4 +62,4 @@
     </div>
 </div>
 
-<BlogContainer @ref="Memes" ShowManageWorkflow="true" EditPostCallback="EditMode"></BlogContainer>
+<BlogContainer @ref="BlogContainer" ShowManageWorkflow="true" EditPostCallback="EditMode" BlogId="@Blog.Id"></BlogContainer>
