@@ -4,7 +4,7 @@
         <ul>
             <li class="first">
                 <NavLink class="nav-link" href="@BlogNavigation">
-                    <i class="fas fa-memory" aria-hidden="true"></i>@BlogNavigation
+                    <i class="fas @fas" aria-hidden="true"></i>@BlogQuickTitle
                 </NavLink>
             </li>
             <li class="modify">
@@ -16,7 +16,7 @@
     </Authorized>
     <NotAuthorized>
         <NavLink class="nav-link" href="@BlogNavigation">
-            <i class="fas fa-memory" aria-hidden="true"></i>@BlogNavigation
+            <i class="fas @fas" aria-hidden="true"></i>@BlogQuickTitle
         </NavLink>
     </NotAuthorized>
 </AuthorizeView>
@@ -24,4 +24,13 @@
 @code {
     [Parameter]
     public string BlogNavigation { get; set; }
+    [Parameter]
+    public string BlogQuickTitle { get; set; }
+
+    protected override void OnInitialized()
+    {
+        fas = BlogQuickTitle == "Memes" ? "fa-memory" : "fa-sun";
+        base.OnInitialized();
+    }
+    private string fas;
 }

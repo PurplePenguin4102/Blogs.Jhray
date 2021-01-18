@@ -12,8 +12,23 @@ namespace Blogs.Jhray.Pages.BlogContent
     {
         [Inject]
         public BlogService BlogService { get; set; }
+
+        private string _homeUrl;
         [Parameter] 
-        public string HomeUrl { get; set; }
+        public string HomeUrl 
+        { 
+            get => _homeUrl;
+            set
+            {
+                if (_homeUrl != value)
+                {
+                    _homeUrl = value;
+                    LoadBlog(value);
+                    StateHasChanged();
+                }
+            } 
+        }
+
 
         private bool _isFound { get; set; }
 
@@ -23,13 +38,18 @@ namespace Blogs.Jhray.Pages.BlogContent
         {
             try
             {
-                Blog = BlogService.GetBlogMetadata(HomeUrl);
+                LoadBlog(HomeUrl);
                 _isFound = true;
             }
             catch (KeyNotFoundException)
             {
                 _isFound = false;
             }
+        }
+
+        protected void LoadBlog(string homeUrl)
+        {
+            Blog = BlogService.GetBlogMetadata(homeUrl);
         }
     }
 }

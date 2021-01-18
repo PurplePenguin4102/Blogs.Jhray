@@ -1,49 +1,75 @@
 ﻿@page "/AddBlog"
 <div class="container">
-    <h3>Add Blog</h3>
-
-    <Table>
-        <TableHeader>
-            <TableRow>
-                <TableHeaderCell>
-                    Id
-                </TableHeaderCell>
-                <TableHeaderCell>
-                    Author
-                </TableHeaderCell>
-                <TableHeaderCell>
-                    HomeUrl
-                </TableHeaderCell>
-                <TableHeaderCell>
-                    Title
-                </TableHeaderCell>
-                <TableHeaderCell>
-                    LeadIn
-                </TableHeaderCell>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-            @foreach (var blog in Blogs)
-            {
+    <h3>Add Blog <i class="fas fa-rainbow" @onclick="() => Clear()"></i></h3>
+    <EditForm EditContext="NewBlogContext" OnValidSubmit="data => OnNewBlog(data)">
+        <Table>
+            <TableHeader>
+                <TableRow>
+                    <TableHeaderCell>
+                        Id
+                    </TableHeaderCell>
+                    <TableHeaderCell>
+                        Author
+                    </TableHeaderCell>
+                    <TableHeaderCell>
+                        HomeUrl
+                    </TableHeaderCell>
+                    <TableHeaderCell>
+                        Title
+                    </TableHeaderCell>
+                    <TableHeaderCell>
+                        LeadIn
+                    </TableHeaderCell>
+                    <TableHeaderCell>
+                    </TableHeaderCell>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @foreach (var blog in Blogs)
+                {
+                    <TableRow>
+                        <TableRowCell>
+                            @blog.Id
+                        </TableRowCell>
+                        <TableRowCell>
+                            @blog.Author
+                        </TableRowCell>
+                        <TableRowCell>
+                            @blog.HomeUrl
+                        </TableRowCell>
+                        <TableRowCell>
+                            @blog.Title
+                        </TableRowCell>
+                        <TableRowCell>
+                            @blog.LeadIn
+                        </TableRowCell>
+                        <TableRowCell>
+                            <i class="btn btn-warning edit-btn" @onclick="() => SetEditContext(blog.Id)">✎</i><i class="btn btn-danger edit-btn" @onclick="() => Delete(blog.Id)">✎</i>
+                        </TableRowCell>
+                    </TableRow>
+                }
+                <!-- New row -->
                 <TableRow>
                     <TableRowCell>
-                        @blog.Id
+                        @_newBlogModel.Id
                     </TableRowCell>
                     <TableRowCell>
-                        @blog.Author
+                        <InputTextArea rows="2" @bind-Value="_newBlogModel.Author" class="form-control" style="height:35px"></InputTextArea>
                     </TableRowCell>
                     <TableRowCell>
-                        @blog.HomeUrl
+                        <InputTextArea rows="2" @bind-Value="_newBlogModel.HomeUrl" class="form-control" style="height:35px"></InputTextArea>
                     </TableRowCell>
                     <TableRowCell>
-                        @blog.Title
+                        <InputTextArea rows="2" @bind-Value="_newBlogModel.Title" class="form-control" style="height:35px"></InputTextArea>
                     </TableRowCell>
                     <TableRowCell>
-                        @blog.LeadIn
+                        <InputTextArea rows="2" @bind-Value="_newBlogModel.LeadIn" class="form-control" style="height:35px"></InputTextArea>
+                    </TableRowCell>
+                    <TableRowCell>
+                        <button class="btn btn-success edit-btn" type="submit">✎</button>
                     </TableRowCell>
                 </TableRow>
-            }
-        </TableBody>
-    </Table>
-
+            </TableBody>
+        </Table>
+    </EditForm>
 </div>

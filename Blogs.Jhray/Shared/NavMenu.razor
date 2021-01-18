@@ -17,7 +17,7 @@
         @foreach (var blog in Blogs)
         {
             <li class="nav-item px-3">
-                <BlogNav BlogNavigation="@blog.HomeUrl" />
+                <BlogNav BlogNavigation="@blog.HomeUrl" BlogQuickTitle="@blog.Author" />
             </li>
         }
         <AuthorizeView Policy="content-creator">

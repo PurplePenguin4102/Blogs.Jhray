@@ -11,10 +11,22 @@ namespace Blogs.Jhray.Pages.BlogContent
 {
     public partial class BlogContainer : ComponentBase
     {
-        protected List<Posts> blogPosts;
-        
+        protected List<Posts> blogPosts = new List<Posts>();
+
+        private long _blogId;
         [Parameter]
-        public long BlogId { get; set; } = 1;
+        public long BlogId 
+        { 
+            get => _blogId; 
+            set
+            {
+                if (_blogId != value)
+                {
+                    _blogId = value;
+                    ReloadPosts();
+                }
+            }
+        }
 
         [Parameter]
         public bool AutoLoad { get; set; } = true;
@@ -51,15 +63,20 @@ namespace Blogs.Jhray.Pages.BlogContent
 
         public void ReloadPosts()
         {
+            blogPosts.Clear();
             //only load one
             var postId = BlogService.GetLatestPostId(BlogId);
-            blogPosts = new List<Posts> { BlogService.GetPostReadOnly(postId) };
-            // lazy load the rest
-            Task.Run(async () =>
+            if (postId != 0)
             {
-                blogPosts.AddRange(BlogService.ListPosts(BlogId).OrderByDescending(p => p.PublishDate).ToList());
-                await InvokeAsync(() => StateHasChanged());
-            });
+                blogPosts = new List<Posts> { BlogService.GetPostReadOnly(postId) };
+                // lazy load the rest
+                Task.Run(async () =>
+                {
+                    var blogs = BlogService.ListPosts(BlogId).OrderByDescending(p => p.PublishDate).ToList();
+                    blogPosts.AddRange(blogs);
+                    await InvokeAsync(() => StateHasChanged());
+                });
+            }
             StateHasChanged();
         }
 

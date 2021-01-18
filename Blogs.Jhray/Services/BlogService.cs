@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
+using Blogs.Jhray.Pages.ManageBlogs;
 
 namespace Blogs.Jhray.Services
 {
@@ -45,8 +46,16 @@ namespace Blogs.Jhray.Services
 
         internal long GetLatestPostId(long blogId = 1)
         {
-            var post = _postsService.GetLatestPostId(blogId);
-            return post;
+            try
+            {
+                var post = _postsService.GetLatestPostId(blogId);
+                return post;
+            }
+            catch
+            {
+                return 0;
+            }
+            
         }
 
         internal List<long> ListPostIds()
@@ -61,11 +70,34 @@ namespace Blogs.Jhray.Services
             return retVal;
         }
 
+        internal async Task DeleteBlogById(long id)
+        {
+            var toRemove = _blogContext.Blogs.First(p => p.Id == id);
+            _blogContext.Blogs.Remove(toRemove);
+            await _blogContext.SaveChangesAsync();
+        }
+
         public async Task DeletePostById(long id)
         {
             var toRemove = _blogContext.Posts.First(p => p.Id == id);
             _blogContext.Posts.Remove(toRemove);
             await _blogContext.SaveChangesAsync();
+        }
+
+        internal async Task<long> AddBlog(AddBlogModel blog)
+        {
+            var newBlog = new Blog()
+            {
+                Author = blog.Author,
+                HomeUrl = blog.HomeUrl,
+                LeadIn = blog.LeadIn,
+                Title = blog.Title,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+            _blogContext.Blogs.Add(newBlog);
+            await _blogContext.SaveChangesAsync();
+            return newBlog.Id;
         }
 
         public async Task<long> AddPost(PostFormData posts)
@@ -107,6 +139,19 @@ namespace Blogs.Jhray.Services
             
             await _blogContext.SaveChangesAsync();
             return post.Id;
+        }
+
+        internal async Task<long> UpdateBlog(AddBlogModel blog)
+        {
+            var b = await _blogContext.Blogs.FindAsync(blog.Id);
+            b.Author = blog.Author;
+            b.HomeUrl = blog.HomeUrl;
+            b.Title = blog.Title;
+            b.UpdatedAt = DateTime.Now;
+            b.LeadIn = blog.LeadIn;
+
+            await _blogContext.SaveChangesAsync();
+            return b.Id;
         }
 
         internal async Task<Posts> Find(long id)

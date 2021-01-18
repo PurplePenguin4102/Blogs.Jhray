@@ -19,7 +19,5 @@ namespace Blogs.Jhray.Shared
         {
             Blogs = BlogService.ListBlogs();
         }
-
-
     }
 }
