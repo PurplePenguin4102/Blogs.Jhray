@@ -11,6 +11,7 @@ namespace Blogs.Jhray.Pages.ManageBlogs
 {
     public partial class AddBlog : ComponentBase 
     {
+        public static event EventHandler<EventArgs> SystemChangeEvent;
         [Inject]
         public BlogService BlogService { get; set; }
 
@@ -34,8 +35,14 @@ namespace Blogs.Jhray.Pages.ManageBlogs
             {
                 await BlogService.UpdateBlog(_newBlogModel);
             }
+            await ModifyBlogs();
+        }
+
+        private async Task ModifyBlogs()
+        {
             Blogs = BlogService.ListBlogs();
-            StateHasChanged();
+            SystemChangeEvent?.Invoke(this, new EventArgs());
+            await InvokeAsync(() => StateHasChanged());
         }
 
         protected void Clear()
@@ -58,7 +65,11 @@ namespace Blogs.Jhray.Pages.ManageBlogs
 
         protected async Task Delete(long id)
         {
-            await BlogService.DeleteBlogById(id);
+            if (BlogService.GetLatestPostId(id) == 0)
+            {
+                await BlogService.DeleteBlogById(id);
+                ModifyBlogs();
+            }
         }
     }
 }

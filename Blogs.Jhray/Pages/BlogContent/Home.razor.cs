@@ -13,6 +13,8 @@ namespace Blogs.Jhray.Pages.BlogContent
         [Inject]
         public BlogService BlogService { get; set; }
 
+        protected BlogContainer BlogContainer { get; set; }
+
         private string _homeUrl;
         [Parameter] 
         public string HomeUrl 
@@ -38,7 +40,7 @@ namespace Blogs.Jhray.Pages.BlogContent
         {
             try
             {
-                LoadBlog(HomeUrl);
+                LoadBlog(HomeUrl);  
                 _isFound = true;
             }
             catch (KeyNotFoundException)

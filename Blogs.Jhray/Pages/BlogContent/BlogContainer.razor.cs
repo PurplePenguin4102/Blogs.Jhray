@@ -14,22 +14,27 @@ namespace Blogs.Jhray.Pages.BlogContent
         protected List<Posts> blogPosts = new List<Posts>();
 
         private long _blogId;
+
         [Parameter]
-        public long BlogId 
-        { 
-            get => _blogId; 
+        public long BlogId
+        {
+            get => _blogId;
             set
             {
                 if (_blogId != value)
                 {
                     _blogId = value;
-                    ReloadPosts();
+                    if (AutoLoad)
+                    {
+                        ReloadPosts();
+                    }
                 }
             }
         }
 
         [Parameter]
-        public bool AutoLoad { get; set; } = true;
+        public bool AutoLoad { get; set; }
+
         [Parameter]
         public bool ShowManageWorkflow { get; set; } = false;
 
@@ -47,16 +52,13 @@ namespace Blogs.Jhray.Pages.BlogContent
 
         protected override async Task OnInitializedAsync()
         {
-            if (AutoLoad)
+            if (ShowId > 0)
             {
-                if (ShowId > 0)
-                {
-                    GetPostById();
-                }
-                else
-                {
-                    ReloadPosts();
-                }
+                GetPostById();
+            }
+            else
+            {
+                ReloadPosts();
             }
             await Task.CompletedTask;
         }
@@ -72,8 +74,7 @@ namespace Blogs.Jhray.Pages.BlogContent
                 // lazy load the rest
                 Task.Run(async () =>
                 {
-                    var blogs = BlogService.ListPosts(BlogId).OrderByDescending(p => p.PublishDate).ToList();
-                    blogPosts.AddRange(blogs);
+                    blogPosts = BlogService.ListPosts(BlogId).OrderByDescending(p => p.PublishDate).ToList();
                     await InvokeAsync(() => StateHasChanged());
                 });
             }
@@ -85,11 +86,6 @@ namespace Blogs.Jhray.Pages.BlogContent
             ShowId = showId ?? ShowId;
             blogPosts = new List<Posts> { BlogService.GetPostReadOnly(ShowId) };
             StateHasChanged();
-        }
-
-        public void ReloadPostById()
-        {
-            blogPosts = BlogService.ListPosts(BlogId);
         }
 
         public async Task DeletePostById(long id)
